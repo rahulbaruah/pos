@@ -17,7 +17,7 @@
                
             </div>
             <div>
-                <strong>Copyright</strong>  &copy; {{date("Y")}}
+                <strong>Copyright</strong>  &copy; Xcraft Online Pvt. Ltd. {{date("Y")}}
             </div>
         </div>
 		</div>

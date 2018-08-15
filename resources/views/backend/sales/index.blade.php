@@ -22,7 +22,7 @@ $currency =  setting_by_key("currency");
                             <th>Sales Date</th>
                             <th>Discount</th>
                             <th>Total Amount</th>
-                            <th>Status</th>
+                            <!--<th>Status</th>-->
                             <th></th>
                         </tr>
                     </thead>
@@ -35,7 +35,7 @@ $currency =  setting_by_key("currency");
                                 <td>{{ $sale->created_at->format('d F Y') }}</td>
 								<td>{{$currency}} {{ $sale->discount }}</td>
                                 <td>{{$currency}} {{ ($sale->amount )}}</td>
-									@if($sale->status == 1)  
+									{{--	@if($sale->status == 1)  
 								<td>
                                     <a href="javascript:void(0)" class="btn btn-primary btn-xs ">Completed</a>
                                 </td>
@@ -44,7 +44,7 @@ $currency =  setting_by_key("currency");
                                     <a href="javascript:void(0)" class="btn btn-danger btn-xs">Canceled</a>
                                 </td>
 									@endif
-								
+									--}}
 								
                                 <td>
 								<a href="{{ url('sales/cancel/' . $sale->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>

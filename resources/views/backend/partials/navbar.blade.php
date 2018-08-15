@@ -81,9 +81,9 @@
                 </li>
 				@endpermission
                  @permission('setting')
-				 <!--<li @if(Request::segment(2) == "general") class="active" @endif>
+				 <li @if(Request::segment(2) == "general") class="active" @endif>
                     <a href="{{ url('settings/general') }}"><i class="fa fa-gear"></i> <span class="nav-label"> @lang('menu.settings')</span></a>
-                </li>-->
+                </li>
 				
                  <!--<li @if(Request::segment(1) == "settings" and ((Request::segment(2) == "general" or Request::segment(2) == "html" ))) class="active" @endif>
                     <a href="#"><i class="fa fa-gear"></i> <span class="nav-label"> Settings </span> <span class="fa arrow"></span></a>

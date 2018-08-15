@@ -9,6 +9,10 @@ use App\Customer;
 use Auth;
 use Validator;
 use PDF;
+use SnappyImage;
+use \Html2Text\Html2Text;
+use View;
+use Storage;
 
 class SaleController extends Controller
 {
@@ -41,11 +45,20 @@ class SaleController extends Controller
             'sale' => Sale::findOrFail($id),
         ];
 
-        return view('backend.sales.receipt', $data);
+        //return view('backend.sales.receipt', $data);
 
-        $pdf = PDF::loadView('backend.sales.receipt', $data);
+        $pdf = SnappyImage::loadView('backend.sales.receipt', $data)->setOption('width','58');
         return $pdf->inline();
         //return $pdf->download('invoice.pdf');
+        
+        //$view = View::make('backend.sales.receipt', $data);
+        //$contents = (string) $view;
+        
+        //$html = new \Html2Text\Html2Text($contents);
+
+        //echo $html->getText();
+
+        //Storage::put('file.txt', $html->getText());
     }
     
     public function completeSale(Request $request)
@@ -81,6 +94,10 @@ class SaleController extends Controller
     {
         Sale::where("id", $id)->update(array("status" => 0));
         return redirect("sales");
+    }
+    
+    public function generatePDF($sale){
+        
     }
 	
 	

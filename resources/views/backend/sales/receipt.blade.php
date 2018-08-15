@@ -2,8 +2,8 @@
 
 <?php $currency =  setting_by_key("currency"); ?>
      <div class="page" >
-      <br>
-      <br>
+      <!--<br>
+      <br>-->
 <table width="100%" cellpadding="10" class="tableS" cellspacing="10" style="font-family: Times New Roman; margin-left:0" >
  <tr>
     <td colspan="2" style="text-align:center" class="noborder">
@@ -115,8 +115,8 @@
 </div>
 
 </div>
-<p align="center"><input type="button" id="pr" value="Print" onclick="printpage()" class="btn btn-success noprint" /> </p>
-<p align="center"><a class="noprint" style="text-align:center" href="{{url('sales/create')}}"> @lang('slip.back') </a> </p>
+<!--<p align="center"><input type="button" id="pr" value="Print" onclick="printpage()" class="btn btn-success noprint" /> </p>
+<p align="center"><a class="noprint" style="text-align:center" href="{{url('sales/create')}}"> @lang('slip.back') </a> </p>-->
 
 
 </center>
@@ -211,7 +211,7 @@ font-family:Verdana, Geneva, sans-serif;
        width: 4.8cm;
             height: auto; 
      
-        margin: 10mm auto;
+        margin: 0 auto;
        
       
         background: white;

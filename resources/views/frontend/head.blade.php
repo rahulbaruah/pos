@@ -21,9 +21,9 @@
     <link type="text/css" rel="stylesheet" href="{{url('assets/frontend/css/style.css')}}"><!-- Light Theme Core CSS -->
     
     <!-- Google Fonts here -->
-	<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
+	<!--<link href="https://fonts.googleapis.com/css?family=Roboto:300,400,500,700,900" rel="stylesheet">
     <link href="https://fonts.googleapis.com/css?family=Open+Sans:400,600" rel="stylesheet">
-    <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cookie" rel="stylesheet">-->
 	
 	<script type="text/javascript" src="{{url('assets/frontend/js/jquery-1.11.1.min.js')}}"></script><!-- jquery -->
 	

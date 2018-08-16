@@ -9,7 +9,7 @@ return [
 	"unit_price" => "Unit Price",
 	"qty" => "Qty",
 	"total" => "Total",
-	"tax" => "GST",
+	"tax" => "Tax",
 	"total_paid" => "Total Paid",
 	"payment_with" => "Payment With",
 	"grand_total" => "GRAND TOTAL",

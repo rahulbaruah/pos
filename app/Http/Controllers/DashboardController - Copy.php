@@ -95,13 +95,13 @@ class DashboardController extends Controller
     
     public function getSalesPrice($start , $end) 
     { 
-        $query = DB::table("sales")->where("created_at", ">=", $start)->where("created_at", "<=", $end)->sum("amount");
+        $query = DB::table("sales")->where("created_at", ">=", $start)->where("created_at", "<=", $end)->where("status", 1)->sum("amount");
         return $query;
     } 
     
     public function getSalesTotal($start , $end) 
     { 
-        $query = Sale::where("created_at", ">=", $start)->where("created_at", "<=", $end)->get();
+        $query = Sale::where("created_at", ">=", $start)->where("created_at", "<=", $end)->where("status", 1)->get();
         return count($query);
     } 
     

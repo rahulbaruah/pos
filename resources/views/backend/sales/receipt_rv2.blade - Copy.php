@@ -73,11 +73,11 @@
     <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->total_given,2)}}</strong></td>
  </tr> 
  
- <!--<tr>
+ <tr>
     <td colspan="3"><strong>@lang('slip.payment_with'):</strong></td>
     <td><strong></strong></td>
     <td class="grandtotalFont"><strong><?php if($sale->payment_with == "cash") { echo "Cash"; } else { echo "Card"; } ?></strong></td>
- </tr>-->
+ </tr>
  
  <tr>
     <td colspan="3"><strong>@lang('slip.grand_total'):</strong></td>

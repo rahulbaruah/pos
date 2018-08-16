@@ -47,11 +47,11 @@ class SaleController extends Controller
     {
 		$sale = Sale::findOrFail($id);
         
-		/*$data = [
+		$data = [
             'sale' => $sale,
-        ];*/
+        ];
 
-        //return view('backend.sales.receipt', $data);
+        return view('backend.sales.receipt', $data);
 
         //$pdf = SnappyImage::loadView('backend.sales.receipt', $data)->setOption('width','58');
         //return $pdf->inline();
@@ -147,8 +147,7 @@ class SaleController extends Controller
 			$subtotal_amount = $subtotal_amount + ($item->quantity * $item->price);
 		}
 		
-		$subtotal = $this->newItem('Subtotal', $subtotal_amount);
-		$tax = $this->newItem('S.TAX(3%),GST(5%)', number_format($sale->vat,2));
+		$subtotal = $this->newItem('Subtotal', $subtotal_amount);		
 		$total = $this->newItem('Total', number_format($sale->subtotal - $sale->discount + $sale->vat,2), $currency);
 		/* Date is kept the same for testing */
 		// $date = date('l jS \of F Y h:i:s A');
@@ -177,6 +176,8 @@ class SaleController extends Controller
 		$printer -> text(setting_by_key('address')."\n");
 		$printer -> selectPrintMode();
 		$printer -> text(setting_by_key('phone')."\n");
+
+		$printer -> text("GSTIN:18AIUPB0248F12C\n");
 		
 		$printer -> feed();
 
@@ -204,7 +205,10 @@ class SaleController extends Controller
 		$printer -> feed();
 
 		/* Tax and total */
-		$printer -> text($tax);
+		$tax1 = $this->newItem('GST@5%', number_format($subtotal_amount*(5/100),2));
+		$printer -> text($tax1);
+		$tax2 = $this->newItem('S.CHARGE@3%', number_format($subtotal_amount*(3/100),2));
+		$printer -> text($tax2);
 		$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
 		$printer -> text($total);
 		$printer -> selectPrintMode();

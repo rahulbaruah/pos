@@ -31,7 +31,7 @@ class DashboardControllerNew extends Controller
         }
         
         if(Auth::user()->role_id == 3) { 
-            return redirect("sales/create");
+            return redirect("kitchen/create");
         }
         $now = date('Y-m-d');
         $now = $now . " 23:59:00";

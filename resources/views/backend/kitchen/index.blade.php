@@ -21,8 +21,6 @@ $currency =  setting_by_key("currency");
 							<th>Kitchen Order No</th>
                             <th>Table No</th>
                             <th>Date</th>
-                            <th>Total Amount</th>
-                            <!--<th>Status</th>-->
                             <th></th>
                         </tr>
                     </thead>
@@ -33,19 +31,7 @@ $currency =  setting_by_key("currency");
                                 <td>{{ $key + 1 }}</td>
 								<td>{{ $kitchen->id }}</td>
                                 <td>{{ $kitchen->table_no }}</td>
-                                <td>{{ $kitchen->created_at->format('d F Y') }}</td>
-                                <td>{{$currency}} {{ ($kitchen->amount )}}</td>
-									{{--	@if($kitchen->status == 1)  
-								<td>
-                                    <a href="javascript:void(0)" class="btn btn-primary btn-xs ">Completed</a>
-                                </td>
-									@else
-								<td>
-                                    <a href="javascript:void(0)" class="btn btn-danger btn-xs">Canceled</a>
-                                </td>
-									@endif
-									--}}
-								
+                                <td>{{ $kitchen->created_at->format('d F Y') }}</td>								
                                 <td>
                                     <a target="_blank" href="{{ url('kitchen/receipt/' . $kitchen->id) }}" class="btn btn-primary btn-xs pull-right">@lang('common.show')</a>
                                 </td>

@@ -31,4 +31,5 @@ return [
 	"logout" => "Logout",
 	"search_for_something" => "Search for something...",
 	"kitchen_order" => "Kitchen Order",
+	"kitchen_orders" => "Kitchen Orders",
 ];

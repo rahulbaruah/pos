@@ -23,6 +23,7 @@ class Sale extends Model
     protected $fillable = [
         'customer_id',
         'cashier_id',
+		'table_no',
         'name',
         'email',
         'phone',
@@ -31,8 +32,10 @@ class Sale extends Model
         'type',
         'status',
 		'amount',
+		'discount_percent',
         'discount',
         'vat',
+		'scharge',
         'total_given',
         'change',
         'payment_with',

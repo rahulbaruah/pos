@@ -30,12 +30,14 @@ Route::group(['middlewareGroups' => 'web'], function () {
 	Route::get('/testmail', 'HomeController@testMail');
 	Route::get('localization/{locale}', 'LocalizationController@index');
 
-	Route::get('/admin', 'DashboardController@index')->name('home');
-	Route::get('/dashboard', 'DashboardController@index')->name('home');
+	Route::get('/admin', 'DashboardControllerNew@index')->name('home');
+	Route::get('/dashboard', 'DashboardControllerNew@index')->name('home');
 
 
 	Route::post('newsletter/store', "NewsletterController@store");
 	Route::post('sales/online_order', 'OrderController@completeSale');
+	
+	Route::get('/autocomplete', 'SaleController@autocomplete');
 });
 
 Route::group(
@@ -60,6 +62,11 @@ Route::group(
 		
         Route::get('sales/findcustomer', 'CustomerController@findcustomer');
         Route::post('sales/store_customer', 'CustomerController@storeCustomer');
+		
+		Route::resource('kitchen', 'KitchenController', ['only' => ['create', 'store']]);
+		Route::post('kitchen/complete_sale', 'KitchenController@completeSale');
+		Route::get('kitchen/receipt/{id}', 'KitchenController@receipt');
+		Route::get('kitchen/', 'KitchenController@index');
     
         // Route::group(
             // ['prefix' => 'inventories'], function () {

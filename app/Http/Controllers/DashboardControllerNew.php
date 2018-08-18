@@ -7,7 +7,7 @@ use Auth;
 use App\Sale;
 use App\Product;
 use DB;
-class DashboardController extends Controller
+class DashboardControllerNew extends Controller
 {
     /**
      * Create a new controller instance.
@@ -82,7 +82,7 @@ class DashboardController extends Controller
 		}
         $data["sales_by_product"] = $sales_by_product;
       
-        $data['sales'] = Sale::orderBy("sales.id", "DESC")->limit(10)->get();
+        $data['sales'] = Sale::where("status",'>',0)->orderBy("sales.id", "DESC")->limit(10)->get();
 		
 	
         return view('backend.dashboard.home', $data);
@@ -95,13 +95,13 @@ class DashboardController extends Controller
     
     public function getSalesPrice($start , $end) 
     { 
-        $query = DB::table("sales")->where("created_at", ">=", $start)->where("created_at", "<=", $end)->sum("amount");
+        $query = DB::table("sales")->where("created_at", ">=", $start)->where("created_at", "<=", $end)->where("status",'>',0)->sum("amount");
         return $query;
     } 
     
     public function getSalesTotal($start , $end) 
     { 
-        $query = Sale::where("created_at", ">=", $start)->where("created_at", "<=", $end)->get();
+        $query = Sale::where("created_at", ">=", $start)->where("created_at", "<=", $end)->where("status",'>',0)->get();
         return count($query);
     } 
     

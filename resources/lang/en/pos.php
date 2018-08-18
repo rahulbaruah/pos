@@ -6,9 +6,10 @@ return [
 	"total" => "Total",
 	"checkout" => "Checkout",
 	"clear_cart" => "Clear Cart",
-	"how_would_you_pay" => "How Would Like to pay",
+	"how_would_you_pay" => "How Would Like to pay?",
 	"discount" => "Discount",
-	"tax" => "Tax",
+	"tax" => "GST",
+	"scharge" => "Service Charge",
 	"close" => "Close",
 	"complete_order" => "Complete Order",
 	"total_paid" => "Total Paid",
@@ -33,4 +34,5 @@ return [
 	"just_now"=>"Just Now",
 	"ago"=>"Ago",
 	"order_complete"=>"Order Completed",
+	"delivery"=>"Delivery Charge",
 ];

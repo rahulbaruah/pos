@@ -10,8 +10,6 @@
     <!--<img src="{{url('uploads/logo.jpg')}}" width="220" alt="PRA">-->
         <h2>{{setting_by_key('title')}}</h2>
 		<strong>{{setting_by_key('address')}}, {{setting_by_key('phone')}}</strong>
-		<br/>
-		<strong>GSTIN: {{setting_by_key('gstin')}}</strong>
     </td>
     
  </tr>
@@ -26,7 +24,7 @@
         </td>
  </tr>
  <tr>
-    <td class="noborder" colspan="5"><strong>@lang('slip.invoice_no')</strong> {{ $sale->invoice_no }}</td>
+    <td class="noborder" colspan="5"><strong>Kitchen Order No</strong> {{ $sale->id }}</td>
  </tr>
  <tr>
     <td class="noborder" colspan="5"><strong>@lang('slip.table_no')</strong> {{ $sale->table_no }}</td>
@@ -38,103 +36,17 @@
  <thead>
  <tr>
     <td><strong>Particulars<br/>Unit Price</strong></td>
-    <td><strong>Qty</strong></td>
-    <td><strong>Amount</strong></td>    
+    <td><strong>Qty</strong></td>   
  </tr>
 </thead>
 <tbody>
-<?php $subtotal_amount = 0; ?>
     @foreach($sale->items as $item)
                                 <tr>
                                     <td>{{ $item->product->name }}<!--<br/><?php echo $currency; ?>{{$item->price}}--></td>
                                     <td>{{ $item->quantity }}</td>
-                                    <td><?php echo $currency; ?>{{ number_format($item->quantity * $item->price,2) }}</td>
                                 </tr>
-		<?php $subtotal_amount = $subtotal_amount + ($item->quantity * $item->price); ?>
     @endforeach
 </tbody>
-</table>
-
-<table style="page-break-inside:avoid;font-family: Times New Roman; margin-left:20px" width="90%" cellpadding="5" class="tableS kitchen" cellspacing="5" id="kitchen">
- <hr>
- 
- @if($sale->delivery_cost > 0 and !empty($sale->delivery_cost))
- <tr>
-    <td colspan="3"><strong>Delivery Charge:</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->delivery_cost,2)}}</strong></td>
- </tr>
- @endif
- 
- <tr>
-    <td colspan="3"><strong>Subtotal:</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format(($subtotal_amount+$sale->delivery_cost),2)}}</strong></td>
- </tr>
- 
- <tr>
-    <td colspan="3"><strong>GST@<?php echo setting_by_key("vat") ?>%:</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat,2)}}</strong></td>
- </tr>
- 
- <tr>
-    <td colspan="3"><strong>S.Charge@<?php echo setting_by_key("scharge") ?>%:</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->scharge,2)}}</strong></td>
- </tr>
- 
- @if($sale->discount > 0 and !empty($sale->discount))
-  <tr>
-    <td colspan="3"><strong>@lang('slip.discount'):</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->discount,2)}}</strong></td>
- </tr>  
- @endif
- 
- 
- <!--<tr>
-    <td colspan="3"><strong>@lang('slip.total_given'):</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->total_given,2)}}</strong></td>
- </tr>-->
- 
-<tr>
-    <td colspan="3"><strong>@lang('slip.payment_with'):</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php if($sale->payment_with == "Cash") { echo "Cash"; } else { echo "Card"; } ?></strong></td>
- </tr>
- 
- <tr>
-    <td colspan="3"><strong>@lang('slip.grand_total'):</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->amount,2)}}</strong></td>
- </tr>   
-
-  <!--<tr>
-  <td class="removeborder"></td>
-    <td class="removeborder">&nbsp;</td>
-    <td class="removeborder"></td>
-    <td class="removeborder"></td>
-    <td class="removeborder"></td>
- </tr> -->
- <tr>
-  <td class="removeborder"></td>
-    <td class="removeborder">&nbsp;</td>
-    <td class="removeborder"></td>
-    <td class="removeborder"></td>
-    <td class="removeborder"></td>
- </tr>
- 
-
-  <tr>
-    <td colspan="5" align="center">
-    <strong>@lang('slip.thanks_visting')</strong></td>
-    
- </tr>  
-
- 
- 
 </table>
     
 
@@ -142,7 +54,7 @@
 
 </div>
 <p align="center"><input type="button" id="pr" value="Print" onclick="printpage()" class="btn btn-success noprint" /> </p>
-<p align="center"><a class="noprint" style="text-align:center" href="{{url('sales/create')}}"> @lang('slip.back') </a> </p>
+<p align="center"><a class="noprint" style="text-align:center" href="{{url('kitchen/create')}}"> @lang('slip.back') </a> </p>
 
 
 </center>

@@ -17,4 +17,5 @@ return [
 	"back" => "Back",
 	"discount" => "Discount",
 	"total_given" => "Total Paid",
+	"table_no" => "Table No"
 ];

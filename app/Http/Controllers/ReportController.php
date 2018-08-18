@@ -30,7 +30,7 @@ class ReportController extends Controller
 		$start = $request->input('start');
 		$end = $request->input('end');
 		
-			$query = DB::table("sales");
+			$query = DB::table("sales")->where("status",'>',0);
 			$title = "All";
 			if($date_range == "today") {
 				$title = "Today";

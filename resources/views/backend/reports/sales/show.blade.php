@@ -76,8 +76,12 @@
                                     <td>{{$currency}}{{$sale->subtotal}}</td>
                                 </tr>
 								 <tr>
-                                    <td><strong>TAX :</strong></td>
+                                    <td><strong>@lang('pos.tax') :</strong></td>
                                     <td>{{$currency}}{{$sale->vat}}</td>
+                                </tr>
+								<tr>
+                                    <td><strong>@lang('pos.scharge') :</strong></td>
+                                    <td>{{$currency}}{{$sale->scharge}}</td>
                                 </tr>
 								
 								<tr>
@@ -92,7 +96,7 @@
                                 </tr>
                                 <tr>
                                     <td><strong>TOTAL :</strong></td>
-                                    <td>{{$currency}}{{$sale->subtotal + $sale->vat + $sale->delivery_cost}}</td>
+                                    <td>{{$currency}}{{$sale->subtotal + $sale->scharge + $sale->vat + $sale->delivery_cost}}</td>
                                 </tr>
                                 </tbody>
                             </table>

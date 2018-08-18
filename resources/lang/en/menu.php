@@ -30,4 +30,5 @@ return [
 	"profile" => "Profile",
 	"logout" => "Logout",
 	"search_for_something" => "Search for something...",
+	"kitchen_order" => "Kitchen Order",
 ];

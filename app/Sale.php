@@ -129,7 +129,7 @@ break;
             }
         );
 
-        return $subtotal->sum();
+        return $subtotal->sum() + $this->delivery_cost;
     }
 
     public function getTaxAttribute()

@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Auth;
 use App\Sale;
+use App\SaleItem;
 use App\Product;
 use DB;
 class DashboardControllerNew extends Controller
@@ -69,7 +70,14 @@ class DashboardControllerNew extends Controller
        
        
         
-        $sales_by_product = DB::select("SELECT  SUM(quantity) as total_sales,product_id FROM sale_items GROUP BY (product_id) ORDER BY total_sales DESC LIMIT 10");
+        $sales_by_product = SaleItem::select("SELECT  SUM(quantity) as total_sales,product_id GROUP BY (product_id) ORDER BY total_sales DESC LIMIT 10");
+		
+		$sales_by_product = SaleItem::selectRaw('product_id, sum(quantity) as total_sales')
+									->groupBy('product_id')
+									->orderBy('total_sales', 'desc')
+									->limit(10)
+									->get();
+		
         if(!empty($sales_by_product)) { 
 			foreach($sales_by_product as $sale) {
 				 $sale->product_id;

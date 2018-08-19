@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Sale;
+use App\SaleItem;
 use App\Category;
 use App\Product;
 use App\Customer;
@@ -59,8 +60,11 @@ class SaleController extends Controller
     
     public function completeSale(Request $request)
     {
+		Log::info($request->all());
+		
 		$request->validate([
 			'items' => 'required',
+			'total_given' => 'required',
 		]);
 		
         $form = $request->all();
@@ -106,6 +110,8 @@ class SaleController extends Controller
     public function cancel($id)
     {
         Sale::where("id", $id)->update(array("status" => 0));
+		SaleItem::where("sale_id", $id)->delete();
+		
         return redirect("sales");
     }
     

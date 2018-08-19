@@ -25,7 +25,6 @@ $currency =  setting_by_key("currency");
                             <th>@lang('reports.sales_date')</th>
 							<th>@lang('reports.amount')</th>
                             <th>@lang('reports.discount')</th>
-                            <th>@lang('reports.total_amount')</th>
                             <th></th>
                         </tr>
                             </thead>
@@ -39,7 +38,6 @@ $currency =  setting_by_key("currency");
                                 
 							   <td>{{$currency}} {{ $sale->amount}}</td>
                                 <td>{{$currency}} {{ $sale->discount }}</td>
-                                <td>{{$currency}} {{ $sale->amount }}</td>
                                 <td>
                                     <a href="{{ url('reports/sales/' . $sale->id) }}" class="btn btn-primary btn-xs pull-right">@lang('common.show')</a>
                                 </td>
@@ -58,9 +56,8 @@ $currency =  setting_by_key("currency");
                                 
 							    <th>{{$currency}} {{ $total_amount }}</th>
                                 <th>{{$currency}} {{ $total_discount }}</th>
-                                <th>{{$currency}} {{ $total_amount - $total_discount }}</th>
-                                <th> Total Amount : </th>
-                                <th>{{$currency}} {{ $total_amount - $total_discount }}</th>
+                                <th></th>
+                                <th></th>
                                
                             </tr>
 							

@@ -24,7 +24,7 @@
 <div class="wrapper wrapper-content animated fadeInRight">
                     <div class="ibox-content p-xl">
 					<div class="row">
-                                <div class="col-sm-6">
+                                <div class="col-sm-4">
                                     <h5>From:</h5>
                                     <address>
                                         <strong>{{$sale->name}}</strong><br>
@@ -32,6 +32,10 @@
                                         <abbr title="Phone">P:</abbr> {{$sale->phone}}<br>
                                         <abbr title="Email">E:</abbr> {{$sale->email}}
                                     </address>
+                                </div>
+								
+								<div class="col-sm-2">
+                                    <h5>Table No: {{$sale->table_no}}</h5>
                                 </div>
 
                                 <div class="col-sm-6 text-right">
@@ -71,6 +75,10 @@
 
                             <table class="table invoice-total">
                                 <tbody>
+								<tr>
+                                    <td><strong>Delivery Charges :</strong></td>
+                                    <td>{{$currency}}{{$sale->delivery_cost}}</td>
+                                </tr>
                                 <tr>
                                     <td><strong>Sub Total :</strong></td>
                                     <td>{{$currency}}{{$sale->subtotal}}</td>
@@ -84,11 +92,6 @@
                                     <td>{{$currency}}{{$sale->scharge}}</td>
                                 </tr>
 								
-								<tr>
-                                    <td><strong>Delivery Cost :</strong></td>
-                                    <td>{{$currency}}{{$sale->delivery_cost}}</td>
-                                </tr>
-								
 								
                                 <tr>
                                     <td><strong>DISCOUNT :</strong></td>
@@ -96,7 +99,11 @@
                                 </tr>
                                 <tr>
                                     <td><strong>TOTAL :</strong></td>
-                                    <td>{{$currency}}{{$sale->subtotal + $sale->scharge + $sale->vat + $sale->delivery_cost}}</td>
+                                    <td>{{$currency}}{{$sale->subtotal + $sale->scharge + $sale->vat - $sale->discount}}</td>
+                                </tr>
+								<tr>
+                                    <td><strong>Payment With :</strong></td>
+                                    <td>{{$sale->payment_with}}</td>
                                 </tr>
                                 </tbody>
                             </table>

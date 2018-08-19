@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Sale;
+use App\SaleItem;
 use App\Product;
 use App\Expense;
 use App\Activity;
@@ -91,7 +92,7 @@ class ReportController extends Controller
 		$start = $request->input('start');
 		$end = $request->input('end');
 		
-			$query = DB::table("sales");
+			$query = DB::table("sales")->where("status",'>',0);
 			if($date_range == "today") {
 				$query->whereDay('sales.created_at', '=', date('d'));
 			}
@@ -122,8 +123,12 @@ class ReportController extends Controller
 	
 	
 	
-	public function SalesByProduct() { 
-		$sales_by_product = DB::select("SELECT  SUM(quantity) as total_sales,product_id FROM sale_items GROUP BY (product_id) ORDER BY total_sales DESC");
+	public function SalesByProduct() {		
+		$sales_by_product = SaleItem::selectRaw('product_id, sum(quantity) as total_sales')
+									->groupBy('product_id')
+									->orderBy('total_sales', 'desc')
+									->get();
+		
         if(!empty($sales_by_product)) { 
 			foreach($sales_by_product as $sale) {
 				 $sale->product_id;
@@ -156,6 +161,7 @@ class ReportController extends Controller
 		
 		$data['transections_7_days_online'] = $this->getRevenueRransections(7 , 'order');
 		$data['transections_30_days_online'] = $this->getRevenueRransections(30, 'order');
+        $data['get_orders_365_online'] = $this->getRevenueTransectionsYearly(365, 'order');
         $data['get_orders_365_online'] = $this->getRevenueTransectionsYearly(365, 'order');
 		
 		 return view('backend.reports.graphs', $data);
@@ -192,23 +198,13 @@ class ReportController extends Controller
 	}
 	
 	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	 public function getRevenueRransections($date_difference="" , $type="pos") {
         $where = "";
 		$today='';
         if($today != ""){
-            $where = "DATE(created_at) = '".date("Y-m-d")."'";
+            $where = "(status > 0) AND (DATE(created_at) = '".date("Y-m-d")."')";
         } else {
-            $where = "created_at BETWEEN NOW() - INTERVAL ".$date_difference." DAY AND NOW()";
+            $where = "(status > 0) AND (created_at BETWEEN NOW() - INTERVAL ".$date_difference." DAY AND NOW())";
         }
         $query = DB::select("SELECT SUM(amount) as amount, DATE_FORMAT(created_at,'%W') as day, DATE_FORMAT(created_at,'%d') as dat, DATE_FORMAT(created_at,'%M') as mon, created_at as dated FROM `sales` WHERE type='$type' AND  ".$where." GROUP BY DATE(created_at) ORDER BY created_at DESC");
         return $query;
@@ -217,7 +213,7 @@ class ReportController extends Controller
 	public function getRevenueTransectionsYearly($date_difference="" , $type="pos") {
         $where = "";
         if($date_difference != ""){
-            $where = "created_at BETWEEN NOW() - INTERVAL ".$date_difference." DAY AND NOW()";
+            $where = "(status > 0) AND (created_at BETWEEN NOW() - INTERVAL ".$date_difference." DAY AND NOW())";
         }
 		
 		$query = DB::select("SELECT SUM(amount) as amount, DATE_FORMAT(created_at,'%W') as day, DATE_FORMAT(created_at,'%d') as dat, DATE_FORMAT(created_at,'%M') as mon, created_at as dated FROM `sales` WHERE  type='$type' AND ".$where." GROUP BY MONTH(created_at) ORDER BY created_at DESC");

@@ -23,11 +23,13 @@ class SaleController extends Controller
 {
     public function index()
     {
-        if(Auth::user()->role_id == 1) { 
+        /*if(Auth::user()->role_id == 1) { 
             $data['sales'] = Sale::select("*" , "sales.id as id")->where("status",'>',0)->where("type", "pos")->leftJoin("sale_items as s" , "s.sale_id" , '=', "sales.id" )->orderBy("sales.id", "DESC")->groupBy('sales.id')->paginate(25);
         } else { 
             $data['sales'] = Sale::where("cashier_id", Auth::user()->id)->where("status",'>',0)->leftJoin("sale_items as s" , "s.sale_id" , '=', "sales.id" )->orderBy("sales.id", "DESC")->groupBy('sales.id')->paginate(25);
-        }
+        }*/
+		
+		$data['sales'] = Sale::select("*" , "sales.id as id")->where("status",'>',0)->where("type", "pos")->leftJoin("sale_items as s" , "s.sale_id" , '=', "sales.id" )->orderBy("sales.id", "DESC")->groupBy('sales.id')->paginate(25);
         
         return view('backend.sales.index', $data);
     }

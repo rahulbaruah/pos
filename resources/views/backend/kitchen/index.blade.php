@@ -33,6 +33,7 @@ $currency =  setting_by_key("currency");
                                 <td>{{ $kitchen->table_no }}</td>
                                 <td>{{ $kitchen->created_at->format('d F Y') }}</td>								
                                 <td>
+									<a href="{{ url('kitchen/cancel/' . $kitchen->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>
                                     <a target="_blank" href="{{ url('kitchen/receipt/' . $kitchen->id) }}" class="btn btn-primary btn-xs pull-right">@lang('common.show')</a>
                                 </td>
                             </tr>

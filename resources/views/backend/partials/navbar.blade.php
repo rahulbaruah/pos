@@ -21,10 +21,17 @@
 				 @permission('dashboard')
 				 <li @if(Request::segment(1) == "admin" or Request::segment(1) == "dashboard") class="active" @endif><a href="{{ url('dashboard') }}"><i class="fa fa-th-large"></i> <span class="nav-label">@lang('menu.dashboard')<span></a></li>
 				 @endpermission
+				 
+				 <li  @if((Request::segment(1) == "kitchen" or Request::segment(1) == "create") and Request::segment(2) == "") class="active" @endif>
+                    <a href="#"><i class="fa fa-cutlery"></i> <span class="nav-label">@lang('menu.kitchen_order')</span> <span class="fa arrow"></span></a>
+                    <ul class="nav nav-second-level collapse">
+						<li @if(Request::segment(1) == "kitchen" and Request::segment(2) == "create") class="active" @endif><a href="{{ url('kitchen/create') }}">New Kitchen Order</a></li>
+						 <li @if(Request::segment(1) == "kitchen" and Request::segment(2) == "") class="active" @endif><a href="{{ url('kitchen') }}">@lang('menu.kitchen_orders')</a></li>                       
+                    </ul>
+                </li>
+				
                  @permission('add_sale')
 				 <li @if(Request::segment(1) == "sales" and Request::segment(2) == "create") class="active" @endif><a href="{{ url('sales/create') }}"><i class="fa fa-diamond"></i> <span class="nav-label">@lang('menu.point_of_sale')<span></a></li>
-				 
-				 <li @if(Request::segment(1) == "kitchen" and Request::segment(2) == "create") class="active" @endif><a href="{{ url('kitchen/create') }}"><i class="fa fa-cutlery"></i> <span class="nav-label">@lang('menu.kitchen_order')<span></a></li>
 				 @endpermission
                  @permission('view_expense')
 				 <li @if(Request::segment(1) == "expenses") class="active" @endif><a href="{{ url('expenses') }}"><i class="fa fa-diamond"></i> <span class="nav-label">@lang('menu.expenses')<span></a></li>

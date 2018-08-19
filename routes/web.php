@@ -67,6 +67,7 @@ Route::group(
 		Route::post('kitchen/complete_sale', 'KitchenController@completeSale');
 		Route::get('kitchen/receipt/{id}', 'KitchenController@receipt');
 		Route::get('kitchen/', 'KitchenController@index');
+		Route::get('kitchen/cancel/{id}', 'KitchenController@cancel');
     
         // Route::group(
             // ['prefix' => 'inventories'], function () {

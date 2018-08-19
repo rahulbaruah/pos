@@ -30,11 +30,7 @@ class KitchenController extends Controller
      */
     public function index()
     {
-        if(Auth::user()->role_id == 1) { 
-            $data['kitchens'] = Kitchen::select("*" , "kitchen.id as id")->where("status",'>',0)->leftJoin("kitchen_items as s" , "s.kitchen_id" , '=', "kitchen.id" )->orderBy("kitchen.id", "DESC")->groupBy('kitchen.id')->paginate(25);
-        } else { 
-            $data['kitchens'] = Kitchen::where("cashier_id", Auth::user()->id)->where("status",'>',0)->leftJoin("kitchen_items as s" , "s.kitchen_id" , '=', "kitchen.id" )->orderBy("kitchen.id", "DESC")->groupBy('kitchen.id')->paginate(25);
-        }
+        $data['kitchens'] = Kitchen::select("*" , "kitchen.id as id")->where("status",'>',0)->leftJoin("kitchen_items as s" , "s.kitchen_id" , '=', "kitchen.id" )->orderBy("kitchen.id", "DESC")->groupBy('kitchen.id')->paginate(25);
         
         return view('backend.kitchen.index', $data);
     }
@@ -162,5 +158,11 @@ class KitchenController extends Controller
 		}
 		
 		return 'Could not print. Please see log.';*/
+    }
+	
+	public function cancel($id)
+    {
+        Kitchen::where("id", $id)->update(array("status" => 0));
+        return redirect("kitchen");
     }
 }

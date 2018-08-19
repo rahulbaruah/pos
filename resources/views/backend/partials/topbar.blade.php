@@ -109,7 +109,7 @@
                 </li> -->
 
 				<li><a href="<?php echo url("localization/en"); ?>">EN</a> </li>	
-				<li><a href="<?php echo url("localization/es"); ?>">ES</a> </li>	
+				<!--<li><a href="<?php echo url("localization/es"); ?>">ES</a> </li>-->
                 <li>
                     <a href="{{ url('/logout') }}"> <i class="fa fa-sign-out"></i> @lang('menu.logout')</a>
                 </li>

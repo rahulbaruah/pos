@@ -28,9 +28,11 @@
  <tr>
     <td class="noborder" colspan="5"><strong>@lang('slip.invoice_no')</strong> {{ $sale->invoice_no }}</td>
  </tr>
+ @if($sale->table_no>0)
  <tr>
     <td class="noborder" colspan="5"><strong>@lang('slip.table_no')</strong> {{ $sale->table_no }}</td>
  </tr>
+ @endif
  </thead>
  </table>
 

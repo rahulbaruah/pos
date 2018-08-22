@@ -27,7 +27,7 @@
     <td class="noborder" colspan="5"><strong>Kitchen Order No</strong> {{ $sale->id }}</td>
  </tr>
  <tr>
-    <td class="noborder" colspan="5"><strong>@lang('slip.table_no')</strong> {{ $sale->table_no }}</td>
+    <td class="noborder" colspan="5"><strong>@lang('slip.table_no')</strong> {{ $sale->table_no>0 ? $sale->table_no : "Take Away" }}</td>
  </tr>
  </thead>
  </table>

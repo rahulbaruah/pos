@@ -30,7 +30,7 @@ $currency =  setting_by_key("currency");
                             <tr>
                                 <td>{{ $key + 1 }}</td>
 								<td>{{ $kitchen->id }}</td>
-                                <td>{{ $kitchen->table_no }}</td>
+                                <td>{{ $kitchen->table_no>0 ? $kitchen->table_no : "Take Away" }}</td>
                                 <td>{{ $kitchen->created_at->format('d F Y') }}</td>								
                                 <td>
 									<a href="{{ url('kitchen/cancel/' . $kitchen->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>

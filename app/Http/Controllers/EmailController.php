@@ -44,7 +44,7 @@ class EmailController extends Controller
 				'Pragma' => 'public',
 			);
 			$name = "staff_sold";
-			$filename = "staff_sold.csv";
+			$filename = "staff_sold".date("d-m-Y",time()).".csv";
 		
 			$handle = fopen($filename, 'w');
 			if(count($sales) > 0) { 
@@ -59,7 +59,7 @@ class EmailController extends Controller
 							$handle, [
 							  $key+1,
 							  isset($sale->user->name) ? $sale->user->name : "Unknown",
-							  setting_by_key("currency").$sale->total_amount,
+							  $sale->total_amount,
 							]
 						);
 				}
@@ -75,7 +75,7 @@ class EmailController extends Controller
 				"file" => $filename,
 			);
 			
-		Mail::to(setting_by_key("email"))->send(new ReportsEmail($content));
+		Mail::to(setting_by_key("r_email_1"))->cc(setting_by_key("r_email_2"))->send(new ReportsEmail($content));
 	}
 	
 	
@@ -93,35 +93,36 @@ class EmailController extends Controller
 				'Expires' => '0',
 				'Pragma' => 'public',
 			);
-			$filename = "daily_sales.csv";
+			$filename = "daily_sales".date("d-m-Y",time()).".csv";
 		
 			$handle = fopen($filename, 'w');
 			if(count($sales) > 0) { 
 				fputcsv(
 				$handle, [
-					"#","Amount", "Discount","Total Amount"
+					"#","Amount", "Payment With"
 				]
 			);
 			$total_amount = 0;
-			$total_discount = 0;
+			//$total_discount = 0;
 
 				foreach($sales as $key=>$sale) {
 					fputcsv(
 							$handle, [
 							  $key+1,
-							  setting_by_key("currency").$sale->discount,
-							  setting_by_key("currency").$sale->amount,
+							  $sale->amount,
+							  $sale->payment_with,
 							]
 						);
+					
+					$total_amount += $sale->amount;
 				}
-				$total_amount += $sale->amount;
-				$total_discount += $sale->discount; 
+				
+				//$total_discount += $sale->discount; 
 				
 						fputcsv(
 							$handle, [
-							  "Total",
-							  setting_by_key("currency").$sale->discount,
-							  setting_by_key("currency").$sale->amount,
+							  "Total",							  
+							  $total_amount,
 							]
 						);
 						
@@ -137,7 +138,7 @@ class EmailController extends Controller
 				"file" => $filename,
 			);
 		
-		Mail::to(setting_by_key("email"))->send(new ReportsEmail($content));
+		Mail::to(setting_by_key("r_email_1"))->cc(setting_by_key("r_email_2"))->send(new ReportsEmail($content));
 		
 		return new ReportsEmail($content);
 	}

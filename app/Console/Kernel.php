@@ -4,6 +4,7 @@ namespace App\Console;
 
 use Illuminate\Console\Scheduling\Schedule;
 use Illuminate\Foundation\Console\Kernel as ConsoleKernel;
+use Log;
 
 class Kernel extends ConsoleKernel
 {
@@ -26,6 +27,8 @@ class Kernel extends ConsoleKernel
     {
         // $schedule->command('inspire')
         //          ->hourly();
+		Log::info("Task Success");
+		//$schedule->call('App\Http\Controllers\EmailController@DailySales');
     }
 
     /**

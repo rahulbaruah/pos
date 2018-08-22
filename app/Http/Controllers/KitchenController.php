@@ -165,4 +165,20 @@ class KitchenController extends Controller
         Kitchen::where("id", $id)->update(array("status" => 0));
         return redirect("kitchen");
     }
+	
+	public function getKitchenItems($table_no){
+		$kitchen_orders = Kitchen::where("table_no", $table_no)
+							->where("status", 1)
+							->get();
+		$items = [];
+		foreach($kitchen_orders as $kitchen_order) {
+			foreach($kitchen_order->items as $kitchen_item) {
+				$product = $kitchen_item->product;				
+				$prices = json_decode($product->prices); $titles = json_decode($product->titles);
+				$items[] = [ 'id' => $product->id, 'name' => $product->name, 'price' =>  $prices[0], 'size' => $titles[0] ];
+			}
+		}
+		
+        return response()->json($items);
+	}
 }

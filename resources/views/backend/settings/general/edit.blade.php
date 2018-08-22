@@ -42,7 +42,7 @@
                         {{ csrf_field() }}
  @forelse($settings as $setting)
 
- @if($setting->key != "stripe") 
+	@if($setting->key != "stripe") 
  <div class="form-group">
  <label class="col-sm-2 control-label">{{ $setting->label }}</label>
                                     <div class="col-sm-10">  <input type="text" class="form-control" id="{{ $setting->key }}" name="{{ $setting->key }}" value="{{ old($setting->key, $setting->value) }}"></div>
@@ -53,41 +53,17 @@
            
           @endif
 		  
-		  @if($setting->key == "stripe") 
-			 <?php  $stripe_label = $setting->label;  ?>
-			 <?php  $stripe_value = $setting->value;  ?>
-		  @endif
 		  
-		   @if($setting->key == "frontend") 
-			 <?php  $frontend_label = $setting->label;  ?>
-			 <?php  $frontend_value = $setting->value;  ?>
-		  @endif
-            @empty
-            @endforelse
+		  
+		   
+    @empty
+@endforelse
 				
-			 <div class="form-group">
-							 <label class="col-sm-2 control-label">{{ $stripe_label }}</label>
-							 <div class="form-group col-sm-10">
-									<select name="stripe" class="form-control"> 
-										<option <?php if($stripe_value == "yes") echo "selected";  ?> value="yes"> Yes </option>
-										<option <?php if($stripe_value == "no") echo "selected";  ?>  value="no"> No </option>
-									</select>
-                                    
-                                </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
+			 
+                                <!--<div class="hr-line-dashed"></div>-->
 								
-								<div class="form-group">
-							 <label class="col-sm-2 control-label">{{ $frontend_label }}</label>
-							 <div class="form-group col-sm-10">
-									<select name="frontend" class="form-control"> 
-										<option <?php if($frontend_value == "yes") echo "selected";  ?> value="yes"> Yes </option>
-										<option <?php if($frontend_value == "no") echo "selected";  ?>  value="no"> No </option>
-									</select>
-                                    
-                                </div>
-                                </div>
-                                <div class="hr-line-dashed"></div>
+								
+                                <!--<div class="hr-line-dashed"></div>-->
 								
 								<div class="form-group">
 							 <label class="col-sm-2 control-label">Logo</label>

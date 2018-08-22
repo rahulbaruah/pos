@@ -11,3 +11,9 @@ php artisan backup:run
 php artisan backup:run --only-db
 
 php artisan backup:clean
+
+------------------------------------
+
+C:\xampp\php\php.exe
+
+C:\xampp\htdocs\pos\artisan schedule:run

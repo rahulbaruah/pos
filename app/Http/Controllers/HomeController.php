@@ -67,7 +67,7 @@ class HomeController extends Controller
             "email" => $email,
             "message" => $message
         );
-        Mail::to("arfan67@gmail.com")->send(new Contact($content));
+        Mail::to(setting_by_key("email"))->send(new Contact($content));
         Mail::to($email)->send(new Contact($content));
         echo "success";
     }
@@ -88,7 +88,7 @@ class HomeController extends Controller
         );
 
         //return view("emails.booking");
-        Mail::to("arfan67@gmail.com")->send(new Test($content));
+        Mail::to(setting_by_key("email"))->send(new Test($content));
 
         echo 'Mail Sent!';
     }

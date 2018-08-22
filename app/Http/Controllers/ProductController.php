@@ -21,7 +21,7 @@ class ProductController extends Controller
     {
         $keyword = $request->get('q', '');
 
-        $products = Product::searchByKeyword($keyword)->orderBy("id" , "DESC")->paginate(15);
+        $products = Product::searchByKeyword($keyword)->orderBy("name" , "ASC")->paginate(15);
         $products = !empty($keyword) ? $products->appends(['q' => $keyword]) : $products;
 
         $data = [
@@ -39,7 +39,7 @@ class ProductController extends Controller
      */
     public function create()
     {
-        $categories = Category::get();
+        $categories = Category::orderBy("name" , "ASC")->get();
         return view('backend.products.create', ['categories' => $categories]);
     }
 
@@ -52,7 +52,7 @@ class ProductController extends Controller
      */
     public function store(Requests\StoreProduct $request)
     {
-        $form = $request->all();
+        $form = $request->all();		
         $price = $request->input("price");
         $titles = $request->input("title");
         unset($form['price']);
@@ -83,7 +83,7 @@ class ProductController extends Controller
     public function show($id)
     {
         $product = Product::findOrFail($id);
-        $categories = Category::get();
+        $categories = Category::orderBy("name" , "ASC")->get();
         return view('backend.products.show', compact('product', 'categories'));
     }
 
@@ -97,7 +97,7 @@ class ProductController extends Controller
     public function edit($id)
     {
         $product = Product::findOrFail($id);
-        $categories = Category::get();
+        $categories = Category::orderBy("name" , "ASC")->get();
         return view('backend.products.edit', compact('product', 'categories'));
     }
 

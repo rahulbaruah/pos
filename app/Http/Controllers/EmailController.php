@@ -13,7 +13,7 @@ class EmailController extends Controller
 {
 	public function index() {
 		
-		    $query = DB::table("sales");
+		    $query = DB::table("sales")->where("status",'>',0);
 		    $query->whereDay('sales.created_at', '=', date('d'));
 			
 			$sales = $query->select("*", DB::raw('SUM(amount) as total_amount'))->groupBy("cashier_id")->get();
@@ -23,7 +23,8 @@ class EmailController extends Controller
 			
 			 $data['sales'] = $sales;
 			
-			if(!empty($_GET['pdf'])) { 
+			$pdf = "";
+			if(!empty($_GET['pdf'])) {
 				$pdf = $_GET['pdf'];
 			}
 			if($pdf == "yes") { 
@@ -38,7 +39,7 @@ class EmailController extends Controller
 			$headers = array(
 				'Content-Type' => 'application/vnd.ms-excel; charset=utf-8',
 				'Cache-Control' => 'must-revalidate, post-check=0, pre-check=0',
-				'Content-Disposition' => 'attachment; filename=abc.csv',
+				'Content-Disposition' => 'attachment; filename=staff_sold.csv',
 				'Expires' => '0',
 				'Pragma' => 'public',
 			);
@@ -57,8 +58,8 @@ class EmailController extends Controller
 					fputcsv(
 							$handle, [
 							  $key+1,
-							  isset($sale->user->name)? $sale->user->name:"Unknown",
-							  "$".$sale->total_amount,
+							  isset($sale->user->name) ? $sale->user->name : "Unknown",
+							  setting_by_key("currency").$sale->total_amount,
 							]
 						);
 				}
@@ -69,17 +70,18 @@ class EmailController extends Controller
 			}
 			$content = array(
 				"subject" => "Daily Staff Sales Report ",
-				"message" => "",
+				"message" => "This is a test mail message",
 				"sales" => $sales,
 				"file" => $filename,
 			);
-		Mail::to("arfan67@gmail.com")->send(new ReportsEmail($content));
+			
+		Mail::to(setting_by_key("email"))->send(new ReportsEmail($content));
 	}
 	
 	
 	public function DailySales() {
 		
-		    $query = DB::table("sales");
+		    $query = DB::table("sales")->where("status",'>',0);
 			$query->whereDay('sales.created_at', '=', date('d'));
 			
 			$sales = $query->select("*" , "sales.id as id")->leftJoin("sale_items as s" , "s.sale_id" , '=', "sales.id" )->orderBy('sales.created_at', 'DESC')->groupBy("s.sale_id")->get();
@@ -107,8 +109,8 @@ class EmailController extends Controller
 					fputcsv(
 							$handle, [
 							  $key+1,
-							  "$".$sale->discount,
-							  "$".$sale->amount,
+							  setting_by_key("currency").$sale->discount,
+							  setting_by_key("currency").$sale->amount,
 							]
 						);
 				}
@@ -118,8 +120,8 @@ class EmailController extends Controller
 						fputcsv(
 							$handle, [
 							  "Total",
-							  "$".$sale->discount,
-							  "$".$sale->amount,
+							  setting_by_key("currency").$sale->discount,
+							  setting_by_key("currency").$sale->amount,
 							]
 						);
 						
@@ -134,7 +136,10 @@ class EmailController extends Controller
 				"sales" => $sales,
 				"file" => $filename,
 			);
-		Mail::to("arfan67@gmail.com")->send(new ReportsEmail($content));
+		
+		Mail::to(setting_by_key("email"))->send(new ReportsEmail($content));
+		
+		return new ReportsEmail($content);
 	}
 	
 	

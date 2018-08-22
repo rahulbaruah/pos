@@ -82,17 +82,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>
-			<td style="background-color: #18A689; padding: 15px 20px;">
-				<span style="float: right;margin-top: 10px; color: #FFF;">As of: {{date("m/d/Y")}}</span>
-				<img src="{{url('uploads/logo.jpg')}}" alt="">
-			</td>
+			<td align="center" class="report-title-bg" style="position:relative"><strong>{{setting_by_key("title")}}</strong> <span style="float: right;color: #FFF;position: absolute;right: 5px;">As of: {{date("d/m/Y")}}</span></td>
 		</tr>
-		
-		<?php /*?><tr>
-			
-				<td align="right">As of: {{date("m/d/Y")}}</td>
-
-		</tr><?php */?>
 		<tr>
 			<td align="center" class="report-title-bg"><strong>{{$title}}</strong></td>
 		</tr>

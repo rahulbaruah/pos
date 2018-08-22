@@ -7,6 +7,7 @@ use App\SaleItem;
 use App\Category;
 use App\Product;
 use App\Customer;
+use App\Kitchen;
 use Auth;
 use Validator;
 //use PDF;
@@ -59,9 +60,7 @@ class SaleController extends Controller
     }
     
     public function completeSale(Request $request)
-    {
-		Log::info($request->all());
-		
+    {		
 		$request->validate([
 			'items' => 'required',
 			'total_given' => 'required',
@@ -90,6 +89,12 @@ class SaleController extends Controller
         }
 		
         $sale = Sale::createAll($form);
+		
+		/*------------Clean Kitchen Order Status-----------*/
+		
+		Kitchen::where("table_no", $form['table_no'])
+							->where("status", 1)
+							->update(array("status" => 2));
 
         return url("sales/receipt/".$sale->id);
 		

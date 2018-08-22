@@ -82,17 +82,8 @@
 <table width="100%" border="0" cellspacing="0" cellpadding="0">
 	<tbody>
 		<tr>
-			<td style="background-color: #18A689; padding: 15px 20px;">
-				<span style="float: right;margin-top: 10px; color: #FFF;">As of: {{date("m/d/Y")}}</span>
-				<img src="{{url('uploads/logo.jpg')}}" alt="">
-			</td>
+			<td align="center" class="report-title-bg" style="position:relative"><strong>{{setting_by_key("title")}}</strong> <span style="float: right;color: #FFF;position: absolute;right: 5px;">As of: {{date("d/m/Y")}}</span></td>
 		</tr>
-		
-		<?php /*?><tr>
-			
-				<td align="right">As of: {{date("m/d/Y")}}</td>
-
-		</tr><?php */?>
 		<tr>
 			<td align="center" class="report-title-bg"><strong>{{$title}}</strong></td>
 		</tr>
@@ -118,9 +109,9 @@
                                 <td>{{ $key + 1 }}</td>
                                <td>{{ date('d F Y' , strtotime($sale->created_at)) }}</td>
                                 
-							   <td>${{ $sale->amount}}</td>
-                                <td>${{ $sale->discount }}</td>
-                                <td>${{ $sale->amount }}</td>
+							   <td>{{setting_by_key("currency")}}{{ $sale->amount}}</td>
+                                <td>{{setting_by_key("currency")}}{{ $sale->discount }}</td>
+                                <td>{{setting_by_key("currency")}}{{ $sale->amount }}</td>
                             </tr>
 							<?php $total_amount += $sale->amount; ?>
 							<?php $total_discount += $sale->discount; ?>
@@ -134,9 +125,9 @@
                                 <th>Total: {{count($sales)}}</th>
                                 <th></th>
                                 
-							    <th>${{ $total_amount }}</th>
-                                <th>${{ $total_discount }}</th>
-                                <th>${{ $total_amount - $total_discount }}</th>
+							    <th>{{setting_by_key("currency")}}{{ $total_amount }}</th>
+                                <th>{{setting_by_key("currency")}}{{ $total_discount }}</th>
+                                <th>{{setting_by_key("currency")}}{{ $total_amount - $total_discount }}</th>
                                 
                             </tr>
 							

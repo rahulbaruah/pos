@@ -7,9 +7,9 @@ use Illuminate\Mail\Mailable;
 use Illuminate\Queue\SerializesModels;
 use Illuminate\Contracts\Queue\ShouldQueue;
 
-class Contact extends Mailable
+class ReportsEmail extends Mailable
 {
-     use Queueable, SerializesModels;
+    use Queueable, SerializesModels;
 
     /**
      * Create a new message instance.
@@ -18,7 +18,7 @@ class Contact extends Mailable
      */
     public function __construct($content)
     {
-		$this->content = $content;
+        $this->content = $content;
     }
 
     /**
@@ -28,7 +28,12 @@ class Contact extends Mailable
      */
     public function build()
     {
-        //return $this->markdown('emails.contact')->subject("Subject Here")->with('content', $this->content);
-        return $this->view('emails.contact')->subject("Subject Here")->with('content', $this->content);
+        return $this->view('emails.report_mail')
+					->subject($this->content['subject'])
+					->with('content', $this->content)
+					->attach($this->content['file'], [
+                        'as' => $this->content['file'],
+                        /*'mime' => 'application/pdf',*/
+                    ]);
     }
 }

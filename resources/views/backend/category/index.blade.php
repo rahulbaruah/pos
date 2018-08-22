@@ -57,7 +57,12 @@
                     @forelse ($categories as $key => $category)
                         <tr class="gradeX">
                              <td>{{ $categories->firstItem() + $key }}</td>
+							 
+							 @if(file_exists('uploads/category/thumb/' . $category->id . '.jpg'))
                              <td><img width="70" id="image_source"  src="<?php echo url("uploads/category/thumb/" . $category->id . ".jpg?rand=".rand(0, 100)); ?>"></td>
+							@else
+							<td><img width="70" id="image_source"  src="{{url('herbs/noimage.jpg')}}"></td>
+							@endif
                             <td>{{ $category->name }}</td>
                            
                             <td>

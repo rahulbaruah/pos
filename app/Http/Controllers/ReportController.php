@@ -61,6 +61,7 @@ class ReportController extends Controller
 			
 			if($pdf == "yes") { 
 				$data['title'] = "Sales Report ($title)";
+				//return view('backend.reports.sales.sales_pdf')->with($data);
 				$pdf = PDF::loadView('backend.reports.sales.sales_pdf' , $data);
 				return $pdf->download('staff_sold.pdf');
 			}

@@ -73,9 +73,15 @@
  </tr>
  
  <tr>
-    <td colspan="3"><strong>GST@<?php echo setting_by_key("vat") ?>%:</strong></td>
+    <td colspan="3"><strong>CGST@<?php echo setting_by_key("vat")/2 ?>%:</strong></td>
     <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat,2)}}</strong></td>
+    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat/2,2)}}</strong></td>
+ </tr>
+ 
+ <tr>
+    <td colspan="3"><strong>SGST@<?php echo setting_by_key("vat")/2 ?>%:</strong></td>
+    <td><strong></strong></td>
+    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat/2,2)}}</strong></td>
  </tr>
  
  <tr>

@@ -23,9 +23,19 @@
             <div class="row">
                 <div class="col-lg-12">
                 <div class="ibox float-e-margins">
+				<h5>@lang('common.products') </h5>
                     <div class="ibox-title">
-                        <h5>@lang('common.products') </h5>
-                        <div class="ibox-tools">
+						<form role="search" class="" action="" method="GET">
+							<div class="col-sm-4">
+								<div class="input-group">
+								  <input name="q" type="text" class="form-control" placeholder="Search for..." value="{{ app('request')->input('q') }}">
+								  <span class="input-group-btn">
+									<button class="btn btn-default" type="submit"><i class="fa fa-search"></i></button>
+								  </span>
+								</div><!-- /input-group -->
+							  </div><!-- /.col-lg-6 -->
+						</form>
+                        <div class="ibox-tools">						
 						<a href="{{ url('products/create') }}" class="btn btn-primary btn-xs">@lang('common.add_new')</a>
 						
                             <a class="collapse-link">
@@ -54,9 +64,16 @@
                     @forelse ($products as $key => $product)
                         <tr class="gradeX">
                             <td>{{ $products->firstItem() + $key }}</td>
-                            <td><img width="100px" src="{{url('uploads/products/thumb/' .$product->id . '.jpg')}}"></td>
+                            <td>
+							@if(file_exists('uploads/products/thumb/' . $product->id . '.jpg'))
+								<img width="50px" src="{{url('uploads/products/thumb/' .$product->id . '.jpg')}}">
+							@else
+								<img width="50px" src="{{url('herbs/noimage.jpg')}}">
+							@endif
+							</td>
                             <td>{{ $product->name }}</td>
-                            <td>{{ $product->price }}</td>
+							<?php $prices = json_decode($product->prices); ?>
+                            <td>{{ $prices[0] }}</td>
                             <td>
                                 <form id="delete-product" action="{{ url('products/' . $product->id) }}" method="POST" class="form-inline">
                                     <input type="hidden" name="_method" value="delete">

@@ -75,31 +75,39 @@
 
                             <table class="table invoice-total">
                                 <tbody>
+								@if($sale->delivery_cost)
 								<tr>
                                     <td><strong>Delivery Charges :</strong></td>
                                     <td>{{$currency}}{{$sale->delivery_cost}}</td>
                                 </tr>
+								@endif
                                 <tr>
                                     <td><strong>Sub Total :</strong></td>
                                     <td>{{$currency}}{{$sale->subtotal}}</td>
                                 </tr>
 								 <tr>
-                                    <td><strong>@lang('pos.tax') :</strong></td>
-                                    <td>{{$currency}}{{$sale->vat}}</td>
+                                    <td><strong>CGST :</strong></td>
+                                    <td>{{$currency}}{{$sale->vat/2}}</td>
+                                </tr>
+								<tr>
+                                    <td><strong>SGST :</strong></td>
+                                    <td>{{$currency}}{{$sale->vat/2}}</td>
                                 </tr>
 								<tr>
                                     <td><strong>@lang('pos.scharge') :</strong></td>
                                     <td>{{$currency}}{{$sale->scharge}}</td>
                                 </tr>
 								
-								
+								@if($sale->discount)
                                 <tr>
                                     <td><strong>DISCOUNT :</strong></td>
                                     <td>{{$currency}}{{$sale->discount}}</td>
                                 </tr>
+								@endif
+								
                                 <tr>
                                     <td><strong>TOTAL :</strong></td>
-                                    <td>{{$currency}}{{$sale->subtotal + $sale->scharge + $sale->vat - $sale->discount}}</td>
+                                    <td><strong>{{$currency}}{{$sale->subtotal + $sale->scharge + $sale->vat - $sale->discount}}</strong></td>
                                 </tr>
 								<tr>
                                     <td><strong>Payment With :</strong></td>

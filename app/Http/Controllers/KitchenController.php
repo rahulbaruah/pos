@@ -175,7 +175,7 @@ class KitchenController extends Controller
 			foreach($kitchen_order->items as $kitchen_item) {
 				$product = $kitchen_item->product;				
 				$prices = json_decode($product->prices); $titles = json_decode($product->titles);
-				$items[] = [ 'id' => $product->id, 'name' => $product->name, 'price' =>  $prices[0], 'size' => $titles[0] ];
+				$items[] = [ 'id' => $product->id, 'name' => $product->name, 'price' =>  $prices[0], 'size' => $titles[0], 'quantity' => $kitchen_item->quantity, 'p_qty' => $kitchen_item->p_qty ];
 			}
 		}
 		

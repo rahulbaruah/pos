@@ -12,7 +12,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
 ?>
  <div class="wrapper wrapper-content">
         <div class="row">
-            <div class="col-lg-2">
+            <div class="col-lg-2 col-md-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-info pull-right">{{$total_sales_today}}</span>
@@ -23,7 +23,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
                     </div>
                 </div>
             </div>
-            <div class="col-lg-2">
+            <div class="col-lg-2 col-md-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-info pull-right">{{$total_sales_yesterday}}</span>
@@ -37,7 +37,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
             </div>
 
 			
-			 <div class="col-lg-2">
+			 <div class="col-lg-2 col-md-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
 					<span class="label label-info pull-right">{{$total_sales_last_week}}</span>
@@ -51,7 +51,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
             </div>
 
 			
-			 <div class="col-lg-2">
+			 <div class="col-lg-2 col-md-3">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
 					<span class="label label-info pull-right">{{$total_sales_last_month}}</span>
@@ -65,7 +65,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
                 </div>
             </div>
 			
-			<div class="col-lg-4">
+			<div class="col-lg-4 col-md-4">
                 <div class="ibox float-e-margins">
                     <div class="ibox-title">
                         <span class="label label-info pull-right">{{$total_sales}} </span>
@@ -81,7 +81,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
 		
 	
 		
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-md-6">
         <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5> @lang('dashboard.last_pos_sales') </h5>
@@ -139,7 +139,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
         </div> 
 		
 		
-		<div class="col-lg-6">
+		<div class="col-lg-6 col-md-6">
         <div class="ibox float-e-margins">
         <div class="ibox-title">
             <h5>@lang('dashboard.top_10_items')</h5>

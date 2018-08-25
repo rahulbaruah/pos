@@ -1,7 +1,7 @@
 @extends('layouts.app')
 
 @section('content')
-<?php $currency =  setting_by_key("currency"); ?>
+<?php $currency =  $sale->currency; ?>
 <div class="row wrapper border-bottom white-bg page-heading">
                 <div class="col-lg-10">
                     <h2>Sale Invoice </h2>
@@ -34,11 +34,18 @@
                                     </address>
                                 </div>
 								
-								<div class="col-sm-2">
+								<div class="col-sm-4">
                                     <h5>Table No: {{$sale->table_no}}</h5>
+									<?php
+										$kods = [];
+										foreach($sale->kods as $kod) {
+											$kods[] = $kod->kitchen_id;
+										}
+									?>
+                                    <h5>Kitchen Order Nos: {{implode(', ', $kods)}}</h5>
                                 </div>
 
-                                <div class="col-sm-6 text-right">
+                                <div class="col-sm-4 text-right">
                                     <h4>Invoice No.</h4>
                                     <h4 class="text-navy"> {{ $sale->invoice_no }}</h4>
                                     
@@ -85,22 +92,28 @@
                                     <td><strong>Sub Total :</strong></td>
                                     <td>{{$currency}}{{$sale->subtotal}}</td>
                                 </tr>
+								
+								@if($sale->vat)
 								 <tr>
-                                    <td><strong>CGST :</strong></td>
+                                    <td><strong>CGST {{$sale->vat_percent/2}}%:</strong></td>
                                     <td>{{$currency}}{{$sale->vat/2}}</td>
                                 </tr>
 								<tr>
-                                    <td><strong>SGST :</strong></td>
+                                    <td><strong>SGST {{$sale->vat_percent/2}}%:</strong></td>
                                     <td>{{$currency}}{{$sale->vat/2}}</td>
                                 </tr>
+								@endif
+								
+								@if($sale->scharge)
 								<tr>
-                                    <td><strong>@lang('pos.scharge') :</strong></td>
+                                    <td><strong>@lang('pos.scharge') {{$sale->scharge_percent/2}}%:</strong></td>
                                     <td>{{$currency}}{{$sale->scharge}}</td>
                                 </tr>
+								@endif
 								
 								@if($sale->discount)
                                 <tr>
-                                    <td><strong>DISCOUNT :</strong></td>
+                                    <td><strong>DISCOUNT {{$sale->discount_percent/2}}%:</strong></td>
                                     <td>{{$currency}}{{$sale->discount}}</td>
                                 </tr>
 								@endif

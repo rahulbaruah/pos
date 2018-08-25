@@ -109,9 +109,9 @@
                                 <td>{{ $key + 1 }}</td>
                                <td>{{ date('d F Y' , strtotime($sale->created_at)) }}</td>
                                 
-							   <td>{{setting_by_key("currency")}}{{ $sale->amount}}</td>
-                                <td>{{setting_by_key("currency")}}{{ $sale->discount }}</td>
-                                <td>{{setting_by_key("currency")}}{{ $sale->amount }}</td>
+							   <td>{{$sale->currency}}{{ $sale->amount}}</td>
+                                <td>{{$sale->currency}}{{ $sale->discount }}</td>
+                                <td>{{$sale->currency}}{{ $sale->amount }}</td>
                             </tr>
 							<?php $total_amount += $sale->amount; ?>
 							<?php $total_discount += $sale->discount; ?>

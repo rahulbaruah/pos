@@ -5,6 +5,8 @@ $connector = new WindowsPrintConnector("smb://computername/Receipt Printer");
 
 --------------------------------------
 
+edit path variable:
+C:\xampp\mysql\bin
 
 php artisan backup:run
 
@@ -17,3 +19,11 @@ php artisan backup:clean
 C:\xampp\php\php.exe
 
 C:\xampp\htdocs\pos\artisan schedule:run
+
+----------------------------
+
+php artisan migrate
+
+composer dump-autoload
+
+php artisan db:seed

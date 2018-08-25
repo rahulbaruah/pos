@@ -31,16 +31,24 @@ class Sale extends Model
         'comment',
         'type',
         'status',
+		'subtotal',
 		'amount',
 		'discount_percent',
         'discount',
         'vat',
+		'vat_percent',
 		'scharge',
+		'scharge_percent',
         'total_given',
         'change',
         'payment_with',
         'delivery_cost',
         'comments',
+		'currency',
+		's_title',
+		's_address',
+		's_phone',
+		's_gstin',
     ];
 
     protected $appends = [
@@ -50,6 +58,11 @@ class Sale extends Model
     public function items()
     {
         return $this->hasMany('App\SaleItem' , 'Sale_id');
+    }
+	
+	public function kods()
+    {
+        return $this->hasMany('App\SaleKod' , 'sale_id');
     }
 
     public function cashier()

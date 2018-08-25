@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Sale;
 use App\SaleItem;
+use App\SaleKod;
 use App\Category;
 use App\Product;
 use App\Customer;
@@ -71,9 +72,21 @@ class SaleController extends Controller
 		$amount = 0;
 		foreach($items as $item) { 
 			$amount += $item['price'] * $item['quantity'];
-		}	
+		}
+		
+		$form['subtotal'] = $amount + $request->input('delivery_cost');
+		
 		$amount += $request->input('scharge') + $request->input('vat') + $request->input('delivery_cost') - $request->input('discount');
 		$form['amount'] = $amount;
+		
+		$form['vat_percent'] = setting_by_key("vat");
+		$form['scharge_percent'] = setting_by_key("scharge");
+		
+		$form['currency'] = setting_by_key("currency");
+		$form['s_title'] = setting_by_key("title");
+		$form['s_address'] = setting_by_key("address");
+		$form['s_phone'] = setting_by_key("phone");
+		$form['s_gstin'] = setting_by_key("gstin");
 		
 		$rules = Sale::$rules;
         $rules['items'] = 'required';
@@ -89,6 +102,19 @@ class SaleController extends Controller
         }
 		
         $sale = Sale::createAll($form);
+		
+		/*------------Track Sale Kitchen Orders----------------*/
+		
+		$kods = Kitchen::where("table_no", $form['table_no'])
+						->where("status", 1)
+						->get();
+						
+		foreach($kods as $kod) {
+			$SaleKod = new SaleKod;
+			$SaleKod->sale_id = $sale->id;
+			$SaleKod->kitchen_id = $kod->id;
+			$SaleKod->save();
+		}
 		
 		/*------------Clean Kitchen Order Status-----------*/
 		

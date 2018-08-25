@@ -47,6 +47,11 @@ return [
             'driver' => 'local',
             'root' => storage_path('app'),
         ],
+		
+		'backup-local' => [
+            'driver' => 'local',
+            'root' => env('BACKUP_FOLDER'),
+        ],
 
         'public' => [
             'driver' => 'local',

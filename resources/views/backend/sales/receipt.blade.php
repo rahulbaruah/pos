@@ -1,6 +1,6 @@
 <div class="body">
 
-<?php $currency =  setting_by_key("currency"); ?>
+<?php $currency =  $sale->currency; ?>
      <div class="page" >
       <!--<br>
       <br>-->
@@ -8,10 +8,10 @@
  <tr>
     <td colspan="2" style="text-align:center" class="noborder">
     <!--<img src="{{url('uploads/logo.jpg')}}" width="220" alt="PRA">-->
-        <h2>{{setting_by_key('title')}}</h2>
-		<strong>{{setting_by_key('address')}}, {{setting_by_key('phone')}}</strong>
+        <h2>{{$sale->s_title}}</h2>
+		<strong>{{$sale->s_address}}, {{$sale->s_phone}}</strong>
 		<br/>
-		<strong>GSTIN: {{setting_by_key('gstin')}}</strong>
+		<strong>GSTIN: {{$sale->s_gstin}}</strong>
     </td>
     
  </tr>
@@ -74,23 +74,26 @@
     <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format(($subtotal_amount+$sale->delivery_cost),2)}}</strong></td>
  </tr>
  
+ @if($sale->vat)
  <tr>
-    <td colspan="3"><strong>CGST@<?php echo setting_by_key("vat")/2 ?>%:</strong></td>
+    <td colspan="3"><strong>CGST@<?php echo $sale->vat_percent/2 ?>%:</strong></td>
+    <td><strong></strong></td>
+    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat/2,2)}}</strong></td>
+ </tr> 
+ <tr>
+    <td colspan="3"><strong>SGST@<?php echo $sale->vat_percent/2 ?>%:</strong></td>
     <td><strong></strong></td>
     <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat/2,2)}}</strong></td>
  </tr>
+ @endif
  
+ @if($sale->scharge)
  <tr>
-    <td colspan="3"><strong>SGST@<?php echo setting_by_key("vat")/2 ?>%:</strong></td>
-    <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->vat/2,2)}}</strong></td>
- </tr>
- 
- <tr>
-    <td colspan="3"><strong>S.Charge@<?php echo setting_by_key("scharge") ?>%:</strong></td>
+    <td colspan="3"><strong>S.Charge@<?php echo $sale->scharge_percent ?>%:</strong></td>
     <td><strong></strong></td>
     <td class="grandtotalFont"><strong><?php echo $currency; ?>{{number_format($sale->scharge,2)}}</strong></td>
  </tr>
+ @endif
  
  @if($sale->discount > 0 and !empty($sale->discount))
   <tr>
@@ -110,7 +113,7 @@
 <tr>
     <td colspan="3"><strong>@lang('slip.payment_with'):</strong></td>
     <td><strong></strong></td>
-    <td class="grandtotalFont"><strong><?php if($sale->payment_with == "Cash") { echo "Cash"; } else { echo "Card"; } ?></strong></td>
+    <td class="grandtotalFont"><strong>{{$sale->payment_with}}</strong></td>
  </tr>
  
  <tr>

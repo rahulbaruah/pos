@@ -9,6 +9,7 @@ use Mail;
 use App\User;
 use Response;
 use PDF;
+use App\Sale;
 class EmailController extends Controller
 {
 	public function index() {
@@ -81,7 +82,7 @@ class EmailController extends Controller
 	
 	public function DailySales() {
 		
-		    $query = DB::table("sales")->where("status",'>',0);
+		    $query = Sale::where("status",'>',0);
 			$query->whereDay('sales.created_at', '=', date('d'));
 			
 			$sales = $query->select("*" , "sales.id as id")->leftJoin("sale_items as s" , "s.sale_id" , '=', "sales.id" )->orderBy('sales.created_at', 'DESC')->groupBy("s.sale_id")->get();
@@ -93,24 +94,30 @@ class EmailController extends Controller
 				'Expires' => '0',
 				'Pragma' => 'public',
 			);
-			$filename = "daily_sales".date("d-m-Y",time()).".csv";
+			$filename = "daily_sales".time().".csv";
 		
-			$handle = fopen($filename, 'w');
+			$handle = fopen(storage_path('app/reports/'.$filename), 'w');
 			if(count($sales) > 0) { 
 				fputcsv(
 				$handle, [
-					"#","Amount", "Payment With"
+					"#","Amount", "Payment With", "Kitchen Order #"
 				]
 			);
 			$total_amount = 0;
 			//$total_discount = 0;
-
 				foreach($sales as $key=>$sale) {
+					
+					$kods = [];
+					foreach($sale->kods as $kod) {
+						$kods[] = $kod->kitchen_id;
+					}
+										
 					fputcsv(
 							$handle, [
 							  $key+1,
 							  $sale->amount,
 							  $sale->payment_with,
+							  implode(', ', $kods)
 							]
 						);
 					
@@ -140,7 +147,7 @@ class EmailController extends Controller
 		
 		Mail::to(setting_by_key("r_email_1"))->cc(setting_by_key("r_email_2"))->send(new ReportsEmail($content));
 		
-		return new ReportsEmail($content);
+		//return new ReportsEmail($content);
 	}
 	
 	

@@ -28,7 +28,9 @@ class Kernel extends ConsoleKernel
         // $schedule->command('inspire')
         //          ->hourly();
 		Log::info("Task Success");
+		
 		$schedule->call('App\Http\Controllers\EmailController@DailySales');
+		$schedule->command('backup:run');
     }
 
     /**

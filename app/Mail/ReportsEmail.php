@@ -31,7 +31,7 @@ class ReportsEmail extends Mailable
         return $this->view('emails.report_mail')
 					->subject($this->content['subject'])
 					->with('content', $this->content)
-					->attach($this->content['file'], [
+					->attach(storage_path('app/reports/'.$this->content['file']), [
                         'as' => $this->content['file'],
                         /*'mime' => 'application/pdf',*/
                     ]);

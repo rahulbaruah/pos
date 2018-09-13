@@ -6,6 +6,7 @@ use App\Http\Requests;
 use App\Role;
 use App\User;
 use DB;
+use Validator;
 
 class UserController extends Controller
 {
@@ -103,7 +104,21 @@ class UserController extends Controller
     public function update(Requests\UpdateUser $request, $id)
     {
         $form = $request->all();
-
+		
+		if($request->input('password')) {
+			$validator = Validator::make($request->all(), [
+				'password' => 'min:6|confirmed',
+			]);
+			if ($validator->fails()) {
+				return redirect()
+							->back()
+							->withErrors($validator)
+							->withInput();
+			}
+		} else {
+			unset($form['password']);
+		}
+		
         $user = User::findOrFail($id);
         $user->update($form);
 		

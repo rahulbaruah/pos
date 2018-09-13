@@ -30,6 +30,17 @@
                                 @endforeach
                             </select>
                         </div>
+						
+						<div class="hr-line-dashed"></div> 
+
+                        <div class="form-group">
+                            <label class="control-label" for="password">@lang('common.password')</label>
+                            <input type="password" class="form-control" id="password" name="password">
+                        </div>
+                        <div class="form-group">
+                            <label class="control-label" for="password_confirmation">@lang('common.confirm_password')</label>
+                            <input type="password" class="form-control" id="password_confirmation" name="password_confirmation">
+                        </div>
 
                         <div class="form-group">
                             <button type="submit" class="btn btn-primary">@lang('common.update')</button>

@@ -192,6 +192,7 @@ $Months =array(1=>"Enero","Febrero","Marzo","Abril","Mayo","Junio","Julio",
 		
 
         </div>
+		<div class="clearfix"></div>
 
 		
 	<?php /* <script src="{{url('assets/js/plugins/flot/jquery.flot.js')}}"></script>

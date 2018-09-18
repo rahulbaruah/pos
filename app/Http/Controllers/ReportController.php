@@ -11,6 +11,7 @@ use DB;
 use PDF;
 use App\User;
 use Illuminate\Http\Request;
+use Carbon\Carbon;
 
 class ReportController extends Controller
 {
@@ -35,7 +36,7 @@ class ReportController extends Controller
 			$title = "All";
 			if($date_range == "today") {
 				$title = "Today";
-				$query->whereDay('sales.created_at', '=', date('d'));
+				$query->whereDate('sales.created_at', '=', Carbon::today());
 			}
 			if($date_range == "current_week") {
 				$title = date("Y-m-d") . " - " . date('Y-m-d h:i:s' , strtotime("-7 days"));
@@ -44,6 +45,7 @@ class ReportController extends Controller
 			if($date_range == "current_month") {
 				$title = date('F');
 				$query->whereMonth('sales.created_at', '=', date('m'));
+				$query->whereYear('sales.created_at', '=', date('Y'));
 			}
 			
 			if($date_range == "custom_date") {
@@ -95,13 +97,14 @@ class ReportController extends Controller
 		
 			$query = DB::table("sales")->where("status",'>',0);
 			if($date_range == "today") {
-				$query->whereDay('sales.created_at', '=', date('d'));
+				$query->whereDate('sales.created_at', '=', Carbon::today());
 			}
 			if($date_range == "current_week") {
 				$query->where('sales.created_at', '>=', date('Y-m-d h:i:s' , strtotime("-7 days")));
 			}
 			if($date_range == "current_month") {
 				$query->whereMonth('sales.created_at', '=', date('m'));
+				$query->whereYear('sales.created_at', '=', date('Y'));
 			}
 			
 			if($date_range == "custom_date") {

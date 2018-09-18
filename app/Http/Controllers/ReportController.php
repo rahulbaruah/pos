@@ -49,8 +49,12 @@ class ReportController extends Controller
 			}
 			
 			if($date_range == "custom_date") {
-				$query->where('sales.created_at', '>=', date('Y-m-d' , strtotime($start)));
-				$query->where('sales.created_at', '<=', date('Y-m-d' , strtotime($end)));
+				if(!$end) {
+					$query->whereDate('sales.created_at', '=', Carbon::parse($start));
+				} else {
+					$query->where('sales.created_at', '>=', date('Y-m-d' , strtotime($start)));
+					$query->where('sales.created_at', '<=', date('Y-m-d' , strtotime($end)));
+				}
 				$title = date('Y-m-d' , strtotime($start)) . " - " .date('Y-m-d' , strtotime($end));
 			}
 			
@@ -108,9 +112,12 @@ class ReportController extends Controller
 			}
 			
 			if($date_range == "custom_date") {
-				$query->where('sales.created_at', '>=', date('Y-m-d' , strtotime($start)));
-				$query->where('sales.created_at', '<=', date('Y-m-d' , strtotime($end)));
-				
+				if(!$end) {
+					$query->whereDate('sales.created_at', '=', Carbon::parse($start));
+				} else {
+					$query->where('sales.created_at', '>=', date('Y-m-d' , strtotime($start)));
+					$query->where('sales.created_at', '<=', date('Y-m-d' , strtotime($end)));
+				}				
 			}
 			
 			$sales = $query->select("*", DB::raw('SUM(amount) as total_amount'))->groupBy("cashier_id")->get();

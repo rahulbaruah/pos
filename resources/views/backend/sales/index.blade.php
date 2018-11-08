@@ -18,7 +18,7 @@ $currency =  setting_by_key("currency");
                     <thead>
                         <tr>
                             <th>#</th>
-                            <th>Customer</th>
+                            <th>Invoice No</th>
                             <th>Sales Date</th>
                             <th>Discount</th>
                             <th>Total Amount</th>
@@ -31,7 +31,7 @@ $currency =  setting_by_key("currency");
                         @forelse ($sales as $key => $sale)
                             <tr>
                                 <td>{{ $key + 1 }}</td>
-                                <td>{{ $sale->customer['name'] }}</td>
+                                <td>{{ $sale->invoice_no }}</td>
                                 <td>{{ $sale->created_at->format('d F Y') }}</td>
 								<td>{{$currency}} {{ $sale->discount }}</td>
                                 <td>{{$currency}} {{ ($sale->amount )}}</td>
@@ -47,7 +47,7 @@ $currency =  setting_by_key("currency");
 									--}}
 								
                                 <td>
-								<a href="{{ url('sales/cancel/' . $sale->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>
+								<!--<a href="{{ url('sales/cancel/' . $sale->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>-->
                                     <a target="_blank" href="{{ url('sales/receipt/' . $sale->id) }}" class="btn btn-primary btn-xs pull-right">Show Receipt</a>
                                 </td>
                             </tr>

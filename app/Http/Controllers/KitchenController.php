@@ -122,6 +122,7 @@ class KitchenController extends Controller
 
         $form = $request->all();
 		$items = $request->input('items');
+		
 		/*$amount = 0;
 		foreach($items as $item) { 
 			$amount += $item['price'] * $item['quantity'];
@@ -143,21 +144,13 @@ class KitchenController extends Controller
         }*/
 		
         $sale = Kitchen::createAll($form);
-
-        return url("kitchen/receipt/".$sale->id);
-		
-		/*$printresult1 = '';
-		$printresult2 = '';
-		
+				
 		if(setting_by_key('printer1')) {
-			$printresult1 = $this->printInvoice($sale, setting_by_key('printer1'));
+			$printresult1 = $this->printKOD($sale, setting_by_key('printer1'));
 		}
+
+        return url("kitchen/receipt/".$sale->id);		
 		
-		if($printresult1 == 'success') {
-			return 'success';
-		}
-		
-		return 'Could not print. Please see log.';*/
     }
 	
 	public function cancel($id)
@@ -180,5 +173,92 @@ class KitchenController extends Controller
 		}
 		
         return response()->json($items);
+	}
+	
+	public function printKOD($sale, $printer_connection_string){
+		
+        /* Information for the receipt */		
+		$items = [];
+		
+		foreach($sale->items as $key=>$item) {
+			$items[] = $this->newItem($item->product->name, $item->quantity);
+		}
+		/* Date is kept the same for testing */
+		// $date = date('l jS \of F Y h:i:s A');
+				
+		$date = date('l jS \of F Y h:i:s A');
+		
+		try {
+			/* Start the printer */
+			//$logo = EscposImage::load("resources/escpos-php.png", false);
+			//$printer = new Printer($connector);
+			
+			$profile = CapabilityProfile::load("simple");
+			$connector = new WindowsPrintConnector($printer_connection_string);
+			$printer = new Printer($connector, $profile);
+
+			/* Print top logo */
+			$printer -> setJustification(Printer::JUSTIFY_CENTER);
+			//$printer -> graphics($logo);
+
+			/* Name of shop */
+			//$printer -> selectPrintMode(Printer::MODE_DOUBLE_WIDTH);
+			//$printer -> setJustification(Printer::JUSTIFY_CENTER);
+			
+			$printer -> selectPrintMode(Printer::MODE_FONT_A);
+			$printer -> text(setting_by_key('title')."\n");
+
+			$printer -> selectPrintMode();
+			$printer -> text(setting_by_key('address')."\n");
+			$printer -> selectPrintMode();
+			$printer -> text(setting_by_key('phone')."\n");
+			
+			$printer -> feed();
+			$printer -> text($date . "\n");
+			$printer -> feed();
+
+			/* Title of receipt */
+			$printer -> setEmphasis(true);
+			$printer -> text("Kitchen Order No. ".$sale->id."\n");
+			$printer -> setEmphasis(false);
+			
+			$printer -> feed();
+			
+			$printer -> setEmphasis(true);
+			$printer -> text("Table No. ".$sale->table_no."\n");
+			$printer -> setEmphasis(false);
+
+			/* Items */
+			$printer -> setJustification(Printer::JUSTIFY_LEFT);
+			
+			foreach ($items as $item) {
+				$printer -> text($item);
+			}
+			
+			$printer -> feed();
+			
+			/* Cut the receipt and open the cash drawer */
+			$printer -> cut();
+			$printer -> pulse();
+
+			$printer -> close();
+			Log::info($printer_connection_string);
+			return 'success';
+		} catch(Exception $e) {
+			trigger_error($e -> getMessage()); // Should be logged some-place for troubleshooting.
+			return $e -> getMessage();
+		}
+    }
+	
+	public function newItem($name = '', $qty = '')
+	{
+				$rightCols = 8;
+				$leftCols = 18;
+				
+				$left = str_pad($name, $leftCols) ;
+
+				$right = str_pad($qty, $rightCols, ' ', STR_PAD_LEFT);
+				
+				return "$left$right\n";
 	}
 }

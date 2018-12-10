@@ -3,6 +3,11 @@ $connector = new WindowsPrintConnector("smb://computername/Receipt Printer");
     //$connector = new WindowsPrintConnector("smb://FooUser:secret@computername/workgroup/Receipt Printer");
     //$connector = new WindowsPrintConnector("smb://User:secret@computername/Receipt Printer");
 
+	cmd > net view
+	
+	cmd > net view \\RAHUL-PC
+	
+	smb://RAHUL-PC/CanonMP280
 --------------------------------------
 
 edit path variable:

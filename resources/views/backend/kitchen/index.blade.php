@@ -32,9 +32,10 @@ $currency =  setting_by_key("currency");
 								<td>{{ $kitchen->id }}</td>
                                 <td>{{ $kitchen->table_no>0 ? $kitchen->table_no : "Take Away" }}</td>
                                 <td>{{ $kitchen->created_at->format('d F Y') }}</td>								
-                                <td>
+                                <td>									
 									<a href="{{ url('kitchen/cancel/' . $kitchen->id) }}" class="btn btn-danger btn-xs pull-right">Cancel It</a>
                                     <a target="_blank" href="{{ url('kitchen/receipt/' . $kitchen->id) }}" class="btn btn-primary btn-xs pull-right">@lang('common.show')</a>
+									<a href="{{ url('quickkod/' . $kitchen->id) }}" class="btn btn-info btn-xs pull-right">Quick Print</a>
                                 </td>
                             </tr>
                         @empty

@@ -175,6 +175,16 @@ class KitchenController extends Controller
         return response()->json($items);
 	}
 	
+	public function quickKODPrint($id) {
+		$sale = Kitchen::find($id);
+				
+		if(setting_by_key('printer1')) {
+			$printresult1 = $this->printKOD($sale, setting_by_key('printer1'));
+		}
+
+        return redirect()->back();	
+	}
+	
 	public function printKOD($sale, $printer_connection_string){
 		
         /* Information for the receipt */		
@@ -242,7 +252,6 @@ class KitchenController extends Controller
 			$printer -> pulse();
 
 			$printer -> close();
-			Log::info($printer_connection_string);
 			return 'success';
 		} catch(Exception $e) {
 			trigger_error($e -> getMessage()); // Should be logged some-place for troubleshooting.

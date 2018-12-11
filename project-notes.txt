@@ -8,6 +8,8 @@ $connector = new WindowsPrintConnector("smb://computername/Receipt Printer");
 	cmd > net view \\RAHUL-PC
 	
 	smb://RAHUL-PC/CanonMP280
+	
+	smb://USER-PC/POS1
 --------------------------------------
 
 edit path variable:

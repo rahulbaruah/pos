@@ -69,6 +69,8 @@ Route::group(
 		Route::get('kitchen/', 'KitchenController@index');
 		Route::get('kitchen/cancel/{id}', 'KitchenController@cancel');
 		Route::get('kitchen/getitems/{table_no}', 'KitchenController@getKitchenItems');
+		
+		Route::get('quickkod/{id}', 'KitchenController@quickKODPrint');
     
         // Route::group(
             // ['prefix' => 'inventories'], function () {

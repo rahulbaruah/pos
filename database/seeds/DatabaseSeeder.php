@@ -15,12 +15,18 @@ class DatabaseSeeder extends Seeder
             'name' => 'Admin',
             'email' => 'admin@xcraft.co',
             'password' => bcrypt('password'),
+			'role_id' => 1
         ]);
 		
 		DB::table('roles')->insert([
-            'name' => 'admin',
-            'display_name' => 'Super Administrator',
-            'description' => 'Main Admin',
+			[ 'name' => 'admin', 'display_name' => 'Super Administrator', 'description' => 'Main Admin'],
+			[ 'name' => 'manager', 'display_name' => 'Sales Manager', 'description' => ''],
+			[ 'name' => 'sales_staff', 'display_name' => 'Sales Staff', 'description' => ''],
+		]);
+		
+		DB::table('role_user')->insert([
+            'user_id' => 1,
+            'role_id' => 1
         ]);
 		
 		DB::table('settings')->insert([

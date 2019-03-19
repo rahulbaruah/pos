@@ -34,3 +34,29 @@ php artisan migrate
 composer dump-autoload
 
 php artisan db:seed
+
+------------Local Installation-------------
+
+xampp-win32-7.1.20-0-VC14-installer
+Visual C++ Redistributable for Visual Studio 2015
+https://getcomposer.org/download/
+
+git clone https://rahulbaruah@bitbucket.org/rahulbaruah/pos.git
+
+
+C:\xampp\apache\conf\extra\httpd-vhosts.conf
+
+<VirtualHost xpos.site:80>
+  DocumentRoot "C:\xampp\htdocs\pos"
+  ServerAdmin xpos.site
+  <Directory "C:\xampp\htdocs\pos">
+        Options Indexes FollowSymLinks
+        AllowOverride All
+        Require all granted
+  </Directory>
+</VirtualHost>
+
+C:\Windows\System32\drivers\etc
+
+127.0.0.1	xpos.site
+

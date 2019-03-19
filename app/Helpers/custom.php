@@ -16,9 +16,9 @@ function setting_by_key($key)
 { 
     $res = Setting::where("key", $key)->first();
 	if($res) {
-		if(count($res) <= 0) {
+		/* if(count($res) <= 0) {
 			return false;
-		}
+		} */
 		return $res->value;
 	}
 	Log::info($key.' - Settings Key Not Found');
@@ -29,9 +29,9 @@ function homepage_by_key($key)
 { 
     $res = Homepage::where("key", $key)->first();
 	if($res) {
-		if(count($res) <= 0) {
+		/* if(count($res) <= 0) {
 			return false;
-		}
+		} */
 		return $res->value;
 	}
 	Log::info($key.' - Homepage by Key Not Found');

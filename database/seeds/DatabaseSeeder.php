@@ -17,6 +17,12 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
 		
+		DB::table('roles')->insert([
+            'name' => 'admin',
+            'display_name' => 'Super Administrator',
+            'description' => 'Main Admin',
+        ]);
+		
 		DB::table('settings')->insert([
 			['key' => 'title', 'label' => 'Site Title', 'value' => ''],
 			['key' => 'phone', 'label' => 'Phone', 'value' => ''],

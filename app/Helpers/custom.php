@@ -7,7 +7,6 @@ use App\Homepage;
 use App\Category;
 use App\Slider;
 use App\Setting;
-use Log;
 
 /*
  *  Get Modules
